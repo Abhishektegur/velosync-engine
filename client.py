@@ -336,8 +336,10 @@ def main() -> None:
     print("VeloSync distributed demo — two edge devices, one master server")
     print("=" * 72)
 
-    phone = _fresh_store("client_phone.db", "edge-phone-01")
-    tablet = _fresh_store("client_tablet.db", "edge-tablet-07")
+    # Use randomized device IDs so that repeated runs start with clean cursors on the server
+    run_suffix = str(int(time.time()))[-6:]
+    phone = _fresh_store("client_phone.db", f"edge-phone-{run_suffix}")
+    tablet = _fresh_store("client_tablet.db", f"edge-tablet-{run_suffix}")
     phone_sync = HTTPSyncEngine(phone)
     tablet_sync = HTTPSyncEngine(tablet)
 
